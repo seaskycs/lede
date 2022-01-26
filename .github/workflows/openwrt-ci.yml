@@ -48,12 +48,6 @@ jobs:
 
           df -h
 
-      #- name: 同步最新的源码
-      #  run: |
-      #    git remote add openwrt https://github.com/coolsnowwolf/lede.git
-      #    git pull openwrt master
-      #    git remote -v
-
       - name: 构建程序包
         run: |
           echo -e "src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main" >> ./feeds.conf.default
@@ -64,10 +58,20 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
-      - name: Generate configuration file
-        run: make defconfig
-
-          
+        run: |
+          rm -f ./.config*
+          touch ./.config
+          #
+          # 在 cat >> .config <<EOF 到 EOF 之间粘贴你的编译配置, 需注意缩进关系
+          # 例如:
+          cat >> .config <<EOF
+          CONFIG_TARGET_IMAGES_GZIP=y
+          CONFIG_KERNEL_BUILD_USER="OpenWrt-CI"
+          CONFIG_KERNEL_BUILD_DOMAIN="Azure"
+          EOF
+          #
+          # ===============================================================
+          # 
           sed -i 's/^[ \t]*//g' ./.config
           make defconfig
 
