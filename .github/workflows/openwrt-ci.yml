@@ -66,11 +66,11 @@ jobs:
           #
           # 在 cat >> .config <<EOF 到 EOF 之间粘贴你的编译配置, 需注意缩进关系
           # 例如:
-          #cat >> .config <<EOF
-          #CONFIG_TARGET_IMAGES_GZIP=y
-          #CONFIG_KERNEL_BUILD_USER="OpenWrt-CI"
-          #CONFIG_KERNEL_BUILD_DOMAIN="Azure"
-          #EOF
+          # cat >> .config <<EOF
+          # CONFIG_TARGET_IMAGES_GZIP=y
+          # CONFIG_KERNEL_BUILD_USER="OpenWrt-CI"
+          # CONFIG_KERNEL_BUILD_DOMAIN="Azure"
+          # EOF
           #
           # ===============================================================
           # 
@@ -110,7 +110,7 @@ jobs:
               CONFIG_TARGET_x86_64_Generic=y
               EOF
               # 固件压缩, 编译ext4格式固件
-                        # 注意如果选的插件数目多，CONFIG_TARGET_ROOTFS_PARTSIZE要设置大一些
+              # 注意如果选的插件数目多，CONFIG_TARGET_ROOTFS_PARTSIZE要设置大一些
               cat >> .config <<EOF
               CONFIG_TARGET_ROOTFS_EXT4FS=y
               CONFIG_TARGET_IMAGES_GZIP=y
