@@ -54,10 +54,11 @@ jobs:
       - name: 构建程序包
         run: |
           echo -e "src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main" >> ./feeds.conf.default
+          echo -e "src-git ssrp https://github.com/fw876/helloworld.git" >> ./feeds.conf.default
 
       - name: Update feeds
         run: |
-          sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
+          # sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
@@ -115,11 +116,11 @@ jobs:
           EOF
           # 固件压缩, 编译ext4格式固件
           # 注意如果选的插件数目多，CONFIG_TARGET_ROOTFS_PARTSIZE要设置大一些
-          cat >> .config <<EOF
-          CONFIG_TARGET_ROOTFS_EXT4FS=y
-          CONFIG_TARGET_IMAGES_GZIP=y
-          CONFIG_TARGET_ROOTFS_PARTSIZE=800
-          EOF
+          # cat >> .config <<EOF
+          # CONFIG_TARGET_ROOTFS_EXT4FS=y
+          # CONFIG_TARGET_IMAGES_GZIP=y
+          # CONFIG_TARGET_ROOTFS_PARTSIZE=800
+          # EOF
           # 编译UEFI固件:
           # cat >> .config <<EOF
           # CONFIG_EFI_IMAGES=y
@@ -208,10 +209,10 @@ jobs:
           CONFIG_PACKAGE_wget=y
           EOF
           # 取消编译VMware镜像以及镜像填充 (不要删除被缩进的注释符号):
-          # cat >> .config <<EOF
-          # # CONFIG_TARGET_IMAGES_PAD is not set
-          # # CONFIG_VMDK_IMAGES is not set
-          # EOF
+          cat >> .config <<EOF
+          CONFIG_TARGET_IMAGES_PAD is not set
+          CONFIG_VMDK_IMAGES is not set
+          EOF
           # 
           # ========================固件定制部分结束========================
           # 
